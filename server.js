@@ -20,5 +20,4 @@ function newConnection(socket) {
         socket.broadcast.emit('playerMove', data);
         console.log(data);
     }
-
 }

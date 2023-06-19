@@ -15,9 +15,18 @@ let backgroundOn = 0;
 
 let yarn;
 
+let bgStart;
+let bgEnd;
+
+let colAmount;
+
+let bothWaters;
+
 let boatModel;
 
 let voiceAccel = 10;
+
+let levelCounter = -2;
 
 boatSequence = true;
 
@@ -28,6 +37,8 @@ let graveyard;
 let waterTexture;
 let boat;
 let hotel;
+let fire;
+let bubbles;
 
 let marina;
 
@@ -47,7 +58,6 @@ class PlayerModel {
     this.position = createVector(x, y, z);
     this.sphereRadius = 3;
   }
-
   display() {
     // Update the position of the sphere to match the camera
     this.position.x = rover.position.x;
@@ -75,15 +85,17 @@ function preload() {
   waterTextureFloor.hide();
   graveyard.hide();
   hotel.hide();
+  fire = createVideo('vid/fire.mp4');
+  fire.hide();
+  bubbles = createVideo('vid/bubbles.mp4');
+  bubbles.hide();
 
   yarn = loadStrings('text/yarn.txt');
-
   imgArr = [water, marina];
-
   cardsFont = loadFont('fonts/MagicCardsNormal.ttf');
-
   boatModel = loadModel('models/newBoat.obj');
 
+  moonModel = loadModel('models/moon.obj');
 }
 
 
@@ -106,9 +118,21 @@ function setup() {    //Begin setup
     otherPlayerPosition = data;
   });
 
+  waterSwitch = 0;
+  bothWaters = waterTexture;
+
+  bgStart = color(0, 0, 0);
+  bgEnd = color(221, 242, 191);
+
+  colAmount = 0;
+
+
   levelOne = new Level(10000, 10000, waterTextureFloor, waterTexture, 0);
   levelTwo = new Level(10000, 10000, boat, boat, 0);
   levelThree = new Level(7000, 7000, hotel, hotel, 0);
+
+  bridgeLevel1 = new bridgeLevel();
+  skyLevel1 = new skyLevel();
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);
 
@@ -126,6 +150,8 @@ function setup() {    //Begin setup
 function draw() { //Begin draw
 
   player1.display();
+
+  bridgeLevel1.display();
 
   if (otherPlayerPosition) {
     push();
@@ -154,7 +180,7 @@ function draw() { //Begin draw
 
   rover.position.y = -400
 
-  displayBoatSequence();
+  // displayBoatSequence();
 
 
 
@@ -164,43 +190,45 @@ function draw() { //Begin draw
     textCount++;
   }
 
+
+
   // rover.position.y = -300;
   noStroke();
 
-  if (boatSequence === false) {
+  // if (boatSequence === false) {
 
-    if (textCount < 17) {
-      levelOne.display();
-      levelOne.restrictMovement();
-      imgCount = 0;
-    } else if (textCount < 34) {
-      levelTwo.display();
-      levelTwo.restrictMovement();
-      imgCount = 1;
-    } else {
-      levelThree.display();
-      levelThree.restrictMovement();
-    }
+  //   if (textCount < 17) {
+  //     levelOne.display();
+  //     levelOne.restrictMovement();
+  //     imgCount = 0;
+  //   } else if (textCount < 34) {
+  //     levelTwo.display();
+  //     levelTwo.restrictMovement();
+  //     imgCount = 1;
+  //   } else {
+  //     levelThree.display();
+  //     levelThree.restrictMovement();
+  //   }
 
-    push();
-    texture(waterTexture);
-    translate(0, -2000, 5200);
-    box(1000 + inc, 5000 + inc, 1000);
-    pop();
+  //   push();
+  //   texture(waterTexture);
+  //   translate(0, -2000, 5200);
+  //   box(1000 + inc, 5000 + inc, 1000);
+  //   pop();
 
-    // push();
-    // stickDisplays();
-    // stroke(255, 0, 0);
-    // strokeWeight(3);
-    // rect(-510, -60, 100, 100);
-    // image(imgArr[imgCount], -510, -60, 100, 100);
-    // translate(random(1, 5), random(1, 5), 0);
-    // text(yarn[textCount], -400, 0);
-    // pop();
-  }
+  //   // push();
+  //   // stickDisplays();
+  //   // stroke(255, 0, 0);
+  //   // strokeWeight(3);
+  //   // rect(-510, -60, 100, 100);
+  //   // image(imgArr[imgCount], -510, -60, 100, 100);
+  //   // translate(random(1, 5), random(1, 5), 0);
+  //   // text(yarn[textCount], -400, 0);
+  //   // pop();
+  // }
 
-  increaseSpeed();
-  voiceMove();
+  // increaseSpeed();
+  // voiceMove();
 
   if (keyIsDown(87) || keyIsDown(83) || keyIsDown(65) || keyIsDown(68)) {
     // console.log('x' + player1.position.x);
@@ -219,10 +247,21 @@ function draw() { //Begin draw
 
 
 
-
+  // bgFade();
+  textureSwitch();
 
 
 } //End Draw
+
+function bgFade() {
+  background(lerpColor(bgStart, bgEnd, colAmount))
+
+  if (colAmount < 1) {
+    colAmount += 0.001;
+  } else {
+    colAmount = 0;
+  }
+}
 
 function keyPressed() {
   waterTexture.loop();
@@ -239,93 +278,113 @@ function keyPressed() {
 }
 
 
-function displayBoatSequence() {
-  if (boatSequence === true) {
+// function displayBoatSequence() {
+//   if (boatSequence === true) {
 
-    push();
-    if (backgroundOn) {
-      background(255, 255, 255, 30);
-    } else {
-      background(0);
-    }
+//     push();
+//     if (backgroundOn) {
+//       background(255, 255, 255, 30);
+//     } else {
+//       background(0);
+//     }
 
-    push();
-    translate(0, -900, (rover.position.z + 2300));
-    texture(hotel);
-    rotateZ(frameCount / 10);
-    sphere(20);
-    translate(0, 150, 0);
-    sphere(60);
+//     push();
+//     translate(0, -900, (rover.position.z + 2300));
+//     texture(hotel);
+//     rotateZ(frameCount / 10);
+//     sphere(20);
+//     translate(0, 150, 0);
+//     sphere(60);
 
-    pop();
+//     pop();
 
-    push();
-    translate(1500, -1500, 1300);
-    texture(boat);
-    for (let i = 0; i < 100; i++) {
-      box(1000, 1000, 5000);
-      translate(0, 0, 10000);
-    }
-    pop();
+//     push();
+//     translate(1500, -1500, 1300);
+//     texture(boat);
+//     for (let i = 0; i < 100; i++) {
+//       box(1000, 1000, 5000);
+//       translate(0, 0, 10000);
+//     }
+//     pop();
 
-    push();
-    translate(-1500, -1500, 1300);
-    texture(boat);
-    for (let i = 0; i < 100; i++) {
-      box(1000, 1000, 5000);
-      translate(0, 0, 10000);
-    }
-    pop();
+//     push();
+//     translate(-1500, -1500, 1300);
+//     texture(boat);
+//     for (let i = 0; i < 100; i++) {
+//       box(1000, 1000, 5000);
+//       translate(0, 0, 10000);
+//     }
+//     pop();
 
-    rotateX(radians(90));
-    texture(waterTexture);
-    push();
-    translate(0, 20000, 2000);
-    rotateY(inc / 100);
-    rotateX(radians(90));
-    texture(boat);
-    scale(13.3);
-    // model(boatModel);
+//     rotateX(radians(90));
+//     texture(waterTexture);
+//     push();
+//     translate(0, 20000, 2000);
+//     rotateY(inc / 100);
+//     rotateX(radians(90));
+//     texture(boat);
+//     scale(13.3);
+//     // model(boatModel);
 
-    pop();
-    for (let i = 0; i < 100; i++) {
-      texture(waterTexture);
-      box(2000, 200, 200);
-      // push();
-      // translate(0, 100, 100)
-      // rotateX(radians(90));
-      // plane(2000, 200);
-      // pop();
-      translate(0, 200, 0);
-      texture(boat);
-      translate(0, 0, -50);
-      box(2000, 200, 200)
-      translate(0, 0, 50);
-      translate(0, 200, 0);
+//     pop();
+//     for (let i = 0; i < 100; i++) {
+//       texture(waterTexture);
+//       box(2000, 200, 200);
+//       // push();
+//       // translate(0, 100, 100)
+//       // rotateX(radians(90));
+//       // plane(2000, 200);
+//       // pop();
+//       translate(0, 200, 0);
+//       texture(boat);
+//       translate(0, 0, -50);
+//       box(2000, 200, 200)
+//       translate(0, 0, 50);
+//       translate(0, 200, 0);
 
-    }
-    pop();
+//     }
+//     pop();
 
 
-    push();
+//     push();
 
-    pop();
+//     pop();
 
-    if (rover.position.x > 1000) {
-      rover.position.x = -1000;
-    }
-    if (rover.position.x < -1000) {
-      rover.position.x = 1000;
-    }
-    // if (rover.position.z > 5300) {
-    //   rover.position.z = 0;
-    // }
-  }
-}
+//     if (rover.position.x > 1000) {
+//       rover.position.x = -1000;
+//     }
+//     if (rover.position.x < -1000) {
+//       rover.position.x = 1000;
+//     }
+//     // if (rover.position.z > 5300) {
+//     //   rover.position.z = 0;
+//     // }
+//   }
+// }
 
-function increaseSpeed() {
+// function increaseSpeed() {
+//   if (frameCount % 60 === 0) {
+//     voiceAccel += 1;
+//   }
+
+// }
+
+function textureSwitch() {
   if (frameCount % 60 === 0) {
-    voiceAccel += 1;
+
+    if (waterSwitch === 0) {
+      waterSwitch = 1;
+      // console.log(waterSwitch);
+    } else if (waterSwitch === 1) {
+      waterSwitch = 0;
+    }
+    // console.log(waterSwitch);
+  }
+  if (waterSwitch === 0) {
+    bothWaters = water;
+  }
+  if (waterSwitch === 1) {
+    bothWaters = waterTexture;
   }
 
 }
