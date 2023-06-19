@@ -1,6 +1,3 @@
-
-
-
 let levelOne;
 let waterTextureFloor;
 let cardsFont;
@@ -26,7 +23,7 @@ let boatModel;
 
 let voiceAccel = 10;
 
-let levelCounter = -2;
+let levelCounter = 0;
 
 boatSequence = true;
 
@@ -126,11 +123,6 @@ function setup() {    //Begin setup
 
   colAmount = 0;
 
-
-  levelOne = new Level(10000, 10000, waterTextureFloor, waterTexture, 0);
-  levelTwo = new Level(10000, 10000, boat, boat, 0);
-  levelThree = new Level(7000, 7000, hotel, hotel, 0);
-
   bridgeLevel1 = new bridgeLevel();
   skyLevel1 = new skyLevel();
 
@@ -151,7 +143,7 @@ function draw() { //Begin draw
 
   player1.display();
 
-  bridgeLevel1.display();
+  gameProgression();
 
   if (otherPlayerPosition) {
     push();
@@ -168,21 +160,7 @@ function draw() { //Begin draw
     }
   }
 
-  // background(255);
-
-  // console.log(rover.position.z);
-
-  // if (textCount >= 42) {
-  //   boatSequence = true;
-  // }
-
-  // rover.enableControl = false;
-
   rover.position.y = -400
-
-  // displayBoatSequence();
-
-
 
   inc++;
 
@@ -190,66 +168,9 @@ function draw() { //Begin draw
     textCount++;
   }
 
-
-
-  // rover.position.y = -300;
   noStroke();
-
-  // if (boatSequence === false) {
-
-  //   if (textCount < 17) {
-  //     levelOne.display();
-  //     levelOne.restrictMovement();
-  //     imgCount = 0;
-  //   } else if (textCount < 34) {
-  //     levelTwo.display();
-  //     levelTwo.restrictMovement();
-  //     imgCount = 1;
-  //   } else {
-  //     levelThree.display();
-  //     levelThree.restrictMovement();
-  //   }
-
-  //   push();
-  //   texture(waterTexture);
-  //   translate(0, -2000, 5200);
-  //   box(1000 + inc, 5000 + inc, 1000);
-  //   pop();
-
-  //   // push();
-  //   // stickDisplays();
-  //   // stroke(255, 0, 0);
-  //   // strokeWeight(3);
-  //   // rect(-510, -60, 100, 100);
-  //   // image(imgArr[imgCount], -510, -60, 100, 100);
-  //   // translate(random(1, 5), random(1, 5), 0);
-  //   // text(yarn[textCount], -400, 0);
-  //   // pop();
-  // }
-
-  // increaseSpeed();
-  // voiceMove();
-
-  if (keyIsDown(87) || keyIsDown(83) || keyIsDown(65) || keyIsDown(68)) {
-    // console.log('x' + player1.position.x);
-    // console.log('y' + player1.position.y);
-    // console.log('z' + player1.position.z);
-
-    data = {
-      x: player1.position.x,
-      y: player1.position.y,
-      z: player1.position.z
-    }
-
-    socket.emit('playerMove', data);
-
-  }
-
-
-
-  // bgFade();
+  getMovement();
   textureSwitch();
-
 
 } //End Draw
 
@@ -263,122 +184,35 @@ function bgFade() {
   }
 }
 
+function getMovement() {
+  if (keyIsDown(87) || keyIsDown(83) || keyIsDown(65) || keyIsDown(68)) {
+    data = {
+      x: player1.position.x,
+      y: player1.position.y,
+      z: player1.position.z
+    }
+    socket.emit('playerMove', data);
+  }
+}
+
 function keyPressed() {
   waterTexture.loop();
   waterTextureFloor.loop();
   graveyard.loop();
   boat.loop();
   hotel.loop();
-
-
-
-
-  // synth.triggerAttackRelease('C4', '8n');
-
+  fire.loop();
+  bubbles.loop();
 }
 
 
-// function displayBoatSequence() {
-//   if (boatSequence === true) {
-
-//     push();
-//     if (backgroundOn) {
-//       background(255, 255, 255, 30);
-//     } else {
-//       background(0);
-//     }
-
-//     push();
-//     translate(0, -900, (rover.position.z + 2300));
-//     texture(hotel);
-//     rotateZ(frameCount / 10);
-//     sphere(20);
-//     translate(0, 150, 0);
-//     sphere(60);
-
-//     pop();
-
-//     push();
-//     translate(1500, -1500, 1300);
-//     texture(boat);
-//     for (let i = 0; i < 100; i++) {
-//       box(1000, 1000, 5000);
-//       translate(0, 0, 10000);
-//     }
-//     pop();
-
-//     push();
-//     translate(-1500, -1500, 1300);
-//     texture(boat);
-//     for (let i = 0; i < 100; i++) {
-//       box(1000, 1000, 5000);
-//       translate(0, 0, 10000);
-//     }
-//     pop();
-
-//     rotateX(radians(90));
-//     texture(waterTexture);
-//     push();
-//     translate(0, 20000, 2000);
-//     rotateY(inc / 100);
-//     rotateX(radians(90));
-//     texture(boat);
-//     scale(13.3);
-//     // model(boatModel);
-
-//     pop();
-//     for (let i = 0; i < 100; i++) {
-//       texture(waterTexture);
-//       box(2000, 200, 200);
-//       // push();
-//       // translate(0, 100, 100)
-//       // rotateX(radians(90));
-//       // plane(2000, 200);
-//       // pop();
-//       translate(0, 200, 0);
-//       texture(boat);
-//       translate(0, 0, -50);
-//       box(2000, 200, 200)
-//       translate(0, 0, 50);
-//       translate(0, 200, 0);
-
-//     }
-//     pop();
-
-
-//     push();
-
-//     pop();
-
-//     if (rover.position.x > 1000) {
-//       rover.position.x = -1000;
-//     }
-//     if (rover.position.x < -1000) {
-//       rover.position.x = 1000;
-//     }
-//     // if (rover.position.z > 5300) {
-//     //   rover.position.z = 0;
-//     // }
-//   }
-// }
-
-// function increaseSpeed() {
-//   if (frameCount % 60 === 0) {
-//     voiceAccel += 1;
-//   }
-
-// }
-
 function textureSwitch() {
   if (frameCount % 60 === 0) {
-
     if (waterSwitch === 0) {
       waterSwitch = 1;
-      // console.log(waterSwitch);
     } else if (waterSwitch === 1) {
       waterSwitch = 0;
     }
-    // console.log(waterSwitch);
   }
   if (waterSwitch === 0) {
     bothWaters = water;
@@ -394,33 +228,3 @@ function stickDisplays() { //This code was lifted from the Mazerunner game examp
   ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 1000);
 }
 
-function startPitch() {
-  pitch = ml5.pitchDetection('./model/', audioContext, mic.stream, modelLoaded);
-}
-
-function modelLoaded() {
-  select('#status').html('Model Loaded');
-  getPitch();
-}
-
-function getPitch() {
-  pitch.getPitch(function (err, frequency) {
-    if (frequency) {
-      select('#result').html(frequency);
-      currentFrequency = frequency;
-      console.log(currentFrequency);
-    } else {
-      select('#result').html('No pitch detected');
-    }
-    getPitch();
-  })
-}
-
-function voiceMove() {
-  if (currentFrequency > 100 && currentFrequency < 300) {
-    rover.position.z += voiceAccel;
-  }
-  if (currentFrequency < 100 && currentFrequency > 0) {
-    rover.position.z -= voiceAccel;
-  }
-}
