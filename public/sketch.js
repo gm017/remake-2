@@ -49,6 +49,13 @@ let audioContext;
 let mic
 let pitch;
 
+let playerMapX;
+let playerMapZ;
+
+let player2MapX;
+let player2MapZ;
+
+
 
 class PlayerModel {
   constructor(x, y, z) {
@@ -109,6 +116,7 @@ function setup() {    //Begin setup
     // speed: 30 //testing speed
   });
 
+
   socket = io.connect('http://localhost:3000');
 
   socket.on('playerMove', function (data) {
@@ -143,7 +151,6 @@ function draw() { //Begin draw
 
   player1.display();
 
-  gameProgression();
 
   if (otherPlayerPosition) {
     push();
@@ -171,8 +178,34 @@ function draw() { //Begin draw
   noStroke();
   getMovement();
   textureSwitch();
+  gameProgression();
+
+  push();
+  playerMapX = map(rover.position.x, -1000, 1000, 10, 90);
+  playerMapZ = map(rover.position.z, -200, 40589, 0, 400);
+  if (otherPlayerPosition) {
+    player2MapX = map(otherPlayerPosition.x, -1000, 1000, 10, 90);
+    player2MapZ = map(otherPlayerPosition.z, -200, 40589, 0, 400);
+  }
+  stickDisplays();
+  fill(255, 0, 0);
+  rect(400, 100, 100, 400);
+  push();
+  fill(0, 255, 255);
+  translate(-playerMapX, -playerMapZ, 0);
+  ellipse(500, 490, 20);
+  pop();
+  push();
+  fill(255, 0, 255);
+  if (otherPlayerPosition) {
+    translate(-player2MapX, -player2MapZ, 0);
+    ellipse(500, 490, 20);
+  }
+  pop();
+  pop();
 
 } //End Draw
+
 
 function bgFade() {
   background(lerpColor(bgStart, bgEnd, colAmount))
