@@ -24,6 +24,12 @@ function newConnection(socket) {
         socket.disconnect();
     }
 
+    socket.on('disconnect', () => {
+        // Decrement the player count
+        playerCount--;
+        console.log(playerCount);
+    });
+
     socket.on('playerMove', moveMsg);
 
     function moveMsg(data) {
