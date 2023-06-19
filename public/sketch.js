@@ -6,6 +6,8 @@ let otherPlayerPosition;
 
 let data;
 
+let mapSprite;
+
 let socket;
 
 let backgroundOn = 0;
@@ -93,6 +95,7 @@ function preload() {
   fire.hide();
   bubbles = createVideo('vid/bubbles.mp4');
   bubbles.hide();
+  mapSprite = loadImage('img/mapSprite.png');
 
   yarn = loadStrings('text/yarn.txt');
   imgArr = [water, marina];
@@ -188,12 +191,13 @@ function draw() { //Begin draw
     player2MapZ = map(otherPlayerPosition.z, -200, 40589, 0, 400);
   }
   stickDisplays();
-  fill(255, 0, 0);
+  fill(0, 0, 0, 50);
   rect(400, 100, 100, 400);
   push();
   fill(0, 255, 255);
   translate(-playerMapX, -playerMapZ, 0);
-  ellipse(500, 490, 20);
+  image(mapSprite, 490, 490, 20, 20);
+  // ellipse(500, 490, 20);
   pop();
   push();
   fill(255, 0, 255);
