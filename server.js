@@ -17,6 +17,7 @@ function newConnection(socket) {
     socket.on('playerMove', moveMsg);
 
     function moveMsg(data) {
+        socket.broadcast.emit('playerMove', data);
         console.log(data);
     }
 

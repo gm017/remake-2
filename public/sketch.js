@@ -5,6 +5,8 @@ let levelOne;
 let waterTextureFloor;
 let cardsFont;
 
+let otherPlayerPosition;
+
 let data;
 
 let socket;
@@ -17,7 +19,7 @@ let boatModel;
 
 let voiceAccel = 10;
 
-boatSequence = false;
+boatSequence = true;
 
 let textCount = 0;
 let imgCount = 0;
@@ -55,7 +57,7 @@ class PlayerModel {
     // Draw the sphere at the updated position
     push();
     translate(this.position.x, this.position.y, this.position.z);
-    sphere(this.sphereRadius);
+    // sphere(this.sphereRadius);
     pop();
   }
 }
@@ -100,6 +102,10 @@ function setup() {    //Begin setup
 
   socket = io.connect('http://localhost:3000');
 
+  socket.on('playerMove', function (data) {
+    otherPlayerPosition = data;
+  });
+
   levelOne = new Level(10000, 10000, waterTextureFloor, waterTexture, 0);
   levelTwo = new Level(10000, 10000, boat, boat, 0);
   levelThree = new Level(7000, 7000, hotel, hotel, 0);
@@ -121,6 +127,13 @@ function draw() { //Begin draw
 
   player1.display();
 
+  if (otherPlayerPosition) {
+    push();
+    translate(otherPlayerPosition.x, otherPlayerPosition.y, otherPlayerPosition.z);
+    sphere(100);
+    pop();
+  }
+
   if (frameCount % 60 === 0) {
     if (backgroundOn === 0) {
       backgroundOn = 1;
@@ -141,7 +154,7 @@ function draw() { //Begin draw
 
   rover.position.y = -400
 
-  // displayBoatSequence();
+  displayBoatSequence();
 
 
 
@@ -189,7 +202,7 @@ function draw() { //Begin draw
   increaseSpeed();
   voiceMove();
 
-  if (keyIsDown(87)) {
+  if (keyIsDown(87) || keyIsDown(83) || keyIsDown(65) || keyIsDown(68)) {
     // console.log('x' + player1.position.x);
     // console.log('y' + player1.position.y);
     // console.log('z' + player1.position.z);
