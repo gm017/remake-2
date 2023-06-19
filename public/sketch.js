@@ -14,6 +14,8 @@ let backgroundOn = 0;
 
 let yarn;
 
+let gameIsFull = false;
+
 let bgStart;
 let bgEnd;
 
@@ -97,10 +99,13 @@ function preload() {
   bubbles.hide();
   mapSprite = loadImage('img/mapSprite.png');
 
+
+
   yarn = loadStrings('text/yarn.txt');
   imgArr = [water, marina];
   cardsFont = loadFont('fonts/MagicCardsNormal.ttf');
   boatModel = loadModel('models/newBoat.obj');
+  playerHorrible = loadModel('models/playerHorrible.obj');
 
   moonModel = loadModel('models/moon.obj');
 }
@@ -124,6 +129,10 @@ function setup() {    //Begin setup
 
   socket.on('playerMove', function (data) {
     otherPlayerPosition = data;
+  });
+
+  socket.on('gameFull', () => {
+    gameIsFull = true;
   });
 
   waterSwitch = 0;
@@ -155,13 +164,6 @@ function draw() { //Begin draw
   player1.display();
 
 
-  if (otherPlayerPosition) {
-    push();
-    translate(otherPlayerPosition.x, otherPlayerPosition.y, otherPlayerPosition.z);
-    sphere(100);
-    pop();
-  }
-
   if (frameCount % 60 === 0) {
     if (backgroundOn === 0) {
       backgroundOn = 1;
@@ -181,7 +183,10 @@ function draw() { //Begin draw
   noStroke();
   getMovement();
   textureSwitch();
-  gameProgression();
+
+  if (gameIsFull === false) {
+    gameProgression();
+  }
 
   push();
   playerMapX = map(rover.position.x, -1000, 1000, 10, 90);
@@ -207,6 +212,34 @@ function draw() { //Begin draw
   }
   pop();
   pop();
+
+  if (keyIsDown(32)) {
+    rover.enableControl = false;
+  } else {
+    rover.enableControl = true;
+  }
+
+  if (gameIsFull === true) {
+    push();
+    stickDisplays();
+    fill(255);
+    rect(0, 0, 1920, 1080);
+    fill(255, 0, 0);
+    text("the server is full. ", 100, 100);
+    text("you need to rest and try again later x", 100, 200);
+    pop();
+  }
+
+
+  if (otherPlayerPosition) {
+    push();
+    translate(otherPlayerPosition.x, otherPlayerPosition.y, otherPlayerPosition.z);
+    scale(100);
+    texture(fire);
+    model(playerHorrible)
+    pop();
+  }
+
 
 } //End Draw
 
@@ -238,6 +271,7 @@ function keyPressed() {
   graveyard.loop();
   boat.loop();
   hotel.loop();
+  hotel.volume(0.0);
   fire.loop();
   bubbles.loop();
 }
