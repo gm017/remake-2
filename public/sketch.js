@@ -41,11 +41,17 @@ let hotel;
 let fire;
 let bubbles;
 
+
+let portrait;
+let faceTexture;
+
 let marina;
 
 let inc = 0;
 
 let imgArr;
+
+let gameFullImg;
 
 let currentFrequency;
 
@@ -98,15 +104,17 @@ function preload() {
   bubbles = createVideo('vid/bubbles.mp4');
   bubbles.hide();
   mapSprite = loadImage('img/mapSprite.png');
-
-
+  faceTexture = loadImage('img/faceTexture2.png');
+  gameFullImg = loadImage('img/gameFull.jpg');
+  portrait = loadImage('img/playerPortrait.png');
 
   yarn = loadStrings('text/yarn.txt');
+
   imgArr = [water, marina];
+
   cardsFont = loadFont('fonts/MagicCardsNormal.ttf');
   boatModel = loadModel('models/newBoat.obj');
-  playerHorrible = loadModel('models/playerHorrible.obj');
-
+  playerHorrible = loadModel('models/bodyModel2.obj');
   moonModel = loadModel('models/moon.obj');
 }
 
@@ -120,11 +128,12 @@ function setup() {    //Begin setup
     position: [-300, -400, -200],
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
+    fov: 1,
     speed: 5.6 //Game speed
     // speed: 30 //testing speed
   });
 
-
+  setAttributes('perPixelLighting', false);
   socket = io.connect('http://localhost:3000');
 
   socket.on('playerMove', function (data) {
@@ -188,6 +197,28 @@ function draw() { //Begin draw
     gameProgression();
   }
 
+
+
+
+  displayMap();
+
+
+  if (keyIsDown(32)) {
+    rover.enableControl = false;
+  } else {
+    rover.enableControl = true;
+  }
+
+
+  player2Model();
+
+  displayPlayerPortrait();
+  gameFullMsg();
+
+} //End Draw
+
+
+function displayMap() {
   push();
   playerMapX = map(rover.position.x, -1000, 1000, 10, 90);
   playerMapZ = map(rover.position.z, -200, 40589, 0, 400);
@@ -208,41 +239,62 @@ function draw() { //Begin draw
   fill(255, 0, 255);
   if (otherPlayerPosition) {
     translate(-player2MapX, -player2MapZ, 0);
-    ellipse(500, 490, 20);
+    // ellipse(500, 490, 20);
+    image(mapSprite, 490, 490, 20, 20);
   }
   pop();
   pop();
 
-  if (keyIsDown(32)) {
-    rover.enableControl = false;
-  } else {
-    rover.enableControl = true;
-  }
+}
 
+function gameFullMsg() {
   if (gameIsFull === true) {
     push();
     stickDisplays();
     fill(255);
     rect(0, 0, 1920, 1080);
     fill(255, 0, 0);
+    image(gameFullImg, 100, 280, 750, 200);
     text("the server is full. ", 100, 100);
     text("you need to rest and try again later x", 100, 200);
     pop();
   }
+}
 
+function displayPlayerPortrait() {
+  push();
+  stickDisplays();
+  tint(255, 255, 0, 150);
+  image(portrait, -950, -530, 100, 100);
+  pop();
 
+}
+
+function player2Model() {
   if (otherPlayerPosition) {
+
+    let mapX = map(otherPlayerPosition.x, 1000, -1000, -78, -400);
+
     push();
-    translate(otherPlayerPosition.x, otherPlayerPosition.y, otherPlayerPosition.z);
-    scale(100);
-    texture(fire);
-    model(playerHorrible)
+
+    // Calculate the angle between the camera and the model
+    const angle = atan2(rover.position.x - otherPlayerPosition.x, rover.position.z - otherPlayerPosition.z);
+
+    // Translate and rotate the model
+    translate(otherPlayerPosition.x, otherPlayerPosition.y + 500 + random(0, 20), otherPlayerPosition.z);
+    rotateY(angle + PI);
+
+    texture(faceTexture);
+    push();
+    scale(6);
+    rotateX(radians(180));
+
+    model(playerHorrible);
+
+    pop();
     pop();
   }
-
-
-} //End Draw
-
+}
 
 function bgFade() {
   background(lerpColor(bgStart, bgEnd, colAmount))
@@ -255,7 +307,7 @@ function bgFade() {
 }
 
 function getMovement() {
-  if (keyIsDown(37) || keyIsDown(38) || keyIsDown(39) || keyIsDown(40)) {
+  if (keyIsDown(68) || keyIsDown(65) || keyIsDown(87) || keyIsDown(83)) {
     data = {
       x: player1.position.x,
       y: player1.position.y,
@@ -273,6 +325,7 @@ function keyPressed() {
   hotel.loop();
   hotel.volume(0.0);
   fire.loop();
+  fire.speed(0.2);
   bubbles.loop();
 }
 
