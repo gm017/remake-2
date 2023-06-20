@@ -1,7 +1,13 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
+
 canvas {
+  margin-top: 300px;
+  margin-left: 300px;
   display: block;
+  width: 700px !important;
+  height: auto !important;
 }

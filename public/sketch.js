@@ -115,11 +115,11 @@ function setup() {    //Begin setup
   createCanvas(1920, 1080, WEBGL);
   textureWrap(REPEAT, CLAMP);
   rover = createRoverCam();
-  rover.usePointerLock();
+  // rover.usePointerLock();
   rover.setState({
     position: [-300, -400, -200],
     rotation: [1.56, 0, 0],
-    sensitivity: 0.1,
+    sensitivity: 0.03,
     speed: 5.6 //Game speed
     // speed: 30 //testing speed
   });
@@ -255,7 +255,7 @@ function bgFade() {
 }
 
 function getMovement() {
-  if (keyIsDown(87) || keyIsDown(83) || keyIsDown(65) || keyIsDown(68)) {
+  if (keyIsDown(37) || keyIsDown(38) || keyIsDown(39) || keyIsDown(40)) {
     data = {
       x: player1.position.x,
       y: player1.position.y,
