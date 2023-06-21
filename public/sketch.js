@@ -129,7 +129,7 @@ function setup() {    //Begin setup
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
     fov: 1,
-    speed: 5.6 //Game speed
+    speed: 8.6 //Game speed
     // speed: 30 //testing speed
   });
 
@@ -163,6 +163,7 @@ function setup() {    //Begin setup
 
   rover.position.y = -700;
 
+  frameRate(20);
 
 } // Begin draw
 
