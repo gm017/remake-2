@@ -184,7 +184,7 @@ function draw() { //Begin draw
     }
   }
 
-  rover.position.y = -400
+  rover.position.y = -700;
 
   inc++;
 

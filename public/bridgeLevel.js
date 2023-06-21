@@ -7,7 +7,6 @@ class bridgeLevel {
     }
     display() {
 
-        rover.position.y = -700;
 
         push();
 
