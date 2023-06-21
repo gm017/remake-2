@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
 });
 
 
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 
 let server = app.listen(PORT);
 
@@ -30,7 +30,7 @@ io.sockets.on('connection', newConnection);
 function newConnection(socket) {
     console.log('new connection:' + socket.id);
 
-    if (playerCount < 2) {
+    if (playerCount < 4) {
         playerCount++;
         console.log(playerCount);
     } else {
@@ -38,14 +38,16 @@ function newConnection(socket) {
         socket.disconnect();
     }
 
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+      });
+
     socket.on('disconnect', () => {
         // Decrement the player count
         playerCount--;
         console.log(playerCount);
     });
 
-
-    
 
     socket.on('playerMove', moveMsg);
 

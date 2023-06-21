@@ -141,7 +141,7 @@ function setup() {    //Begin setup
  
 
   setAttributes('perPixelLighting', false);
-  socket = io.connect('https://remake-2.onrender.com/');
+  socket = io.connect('localhost:3000');
 
   socket.on('playerMove', function (data) {
     otherPlayerPosition = data;
