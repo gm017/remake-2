@@ -1,3 +1,5 @@
+
+
 let levelOne;
 let waterTextureFloor;
 let cardsFont;
@@ -121,6 +123,7 @@ function preload() {
 //reduce boat
 
 
+
 function setup() {    //Begin setup
   createCanvas(1920, 1080, WEBGL);
   textureWrap(REPEAT, CLAMP);
@@ -134,6 +137,8 @@ function setup() {    //Begin setup
     speed: 8.6 //Game speed
     // speed: 30 //testing speed
   });
+
+ 
 
   setAttributes('perPixelLighting', false);
   socket = io.connect('https://remake-2.onrender.com/');
@@ -217,6 +222,8 @@ function draw() { //Begin draw
 
   displayPlayerPortrait();
   gameFullMsg();
+
+
 
 } //End Draw
 

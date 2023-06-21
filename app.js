@@ -44,6 +44,9 @@ function newConnection(socket) {
         console.log(playerCount);
     });
 
+
+    
+
     socket.on('playerMove', moveMsg);
 
     function moveMsg(data) {
