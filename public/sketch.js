@@ -206,18 +206,13 @@ function draw() { //Begin draw
     gameProgression();
   }
 
-
-
-
   displayMap();
-
 
   if (keyIsDown(32)) {
     rover.enableControl = false;
   } else {
     rover.enableControl = true;
   }
-
 
   player2Model();
 
