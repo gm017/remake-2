@@ -118,6 +118,8 @@ function preload() {
   moonModel = loadModel('models/moon.obj');
 }
 
+//reduce boat
+
 
 function setup() {    //Begin setup
   createCanvas(1920, 1080, WEBGL);
