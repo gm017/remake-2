@@ -1,7 +1,10 @@
 let express = require('express');
 
 let app = express();
-let server = app.listen(3000);
+
+const PORT = process.env.PORT || 3000;
+
+let server = app.listen(PORT);
 
 app.use(express.static('public'));
 
