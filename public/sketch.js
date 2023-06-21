@@ -138,7 +138,7 @@ function setup() {    //Begin setup
     // speed: 30 //testing speed
   });
 
- 
+  rover.position.z = 3527;
 
   setAttributes('perPixelLighting', false);
   socket = io.connect('localhost:3000');
@@ -160,6 +160,7 @@ function setup() {    //Begin setup
   colAmount = 0;
 
   bridgeLevel1 = new bridgeLevel();
+  bridgeLevel2 = new bridgeLevel();
   skyLevel1 = new skyLevel();
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);

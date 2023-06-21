@@ -41,10 +41,11 @@ class skyLevel {
         texture(fire);
 
         push();
-        translate(3000, (rover.position.z + 9000), 2000);
+        translate(6000, (rover.position.z + 5000), 200);
         // rotateY(inc / 100);
         rotateX(radians(180));
         rotateZ(radians(90));
+        rotateY(radians(210));   
         texture(bubbles);
         scale(6.3);
         model(boatModel);
@@ -80,18 +81,45 @@ class skyLevel {
         }
         pop();
 
+        push();
+        translate(0, -1250, (11200 * 4 - 3600));
+        texture(bubbles);
+        box(2450, 2300, 10);
+        translate(0, 0, -30);
+        fill(255, 0, 255, 90);
+        box(2450, 2300, 10);
+        pop();
 
+        
         push();
         translate(0, -1250, 11200);
         fill(0, 0, 255, 90);
         box(2450, 2300, 10);
         pop();
 
+        push();
+        translate(0, -1250, (11200 * 4 - 3600));
+        texture(bubbles);
+        box(2450, 2300, 10);
+        translate(0, 0, -30);
+        fill(255, 0, 255, 90);
+        box(2450, 2300, 10);
+        pop();
+
+        push();
+        translate(0, -1250, 1400);
+        texture(bubbles);
+        box(2450, 2300, 10);
+        translate(0, 0, -30);
+        fill(255, 0, 255, 90);
+        box(2450, 2300, 10);
+        pop();
+
         if (rover.position.x > 1000) {
-            rover.position.x = -1000;
+            rover.position.x = 1000;
         }
         if (rover.position.x < -1000) {
-            rover.position.x = 1000;
+            rover.position.x = -1000;
         }
 
         // if (rover.position.z > 10319) {

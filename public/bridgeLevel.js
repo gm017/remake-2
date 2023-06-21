@@ -101,11 +101,21 @@ class bridgeLevel {
         box(2450, 2300, 10);
         pop();
 
+        push();
+        translate(0, -1250, 1400);
+        texture(bubbles);
+        box(2450, 2300, 10);
+        translate(0, 0, -30);
+        fill(255, 0, 255, 90);
+        box(2450, 2300, 10);
+        pop();
+
+
         if (rover.position.x > 1000) {
-            rover.position.x = -1000;
+            rover.position.x = 1000;
         }
         if (rover.position.x < -1000) {
-            rover.position.x = 1000;
+            rover.position.x = -1000;
         }
 
         // if (rover.position.z > 10319) {

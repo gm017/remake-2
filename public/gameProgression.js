@@ -28,11 +28,27 @@ function gameProgression() {
     if (levelCounter === 0) {
         bridgeLevel1.display();
         if (rover.position.z > 40589) {
-            rover.position.z = 340;
+            rover.position.z = 1650;
+            levelCounter++;
+        }
+        if (rover.position.z < 1635) {
+            rover.position.z = 40589;
             levelCounter++;
         }
     }
     if (levelCounter === 1) {
         skyLevel1.display();
+        if (rover.position.z > 40589) {
+            rover.position.z = 1650;
+            levelCounter++;
+        }
+        if (rover.position.z < 1635) {
+            rover.position.z = 40589;
+            levelCounter++;
+        }
+    }
+
+    if (levelCounter >1) {
+        levelCounter = 0;
     }
 }
