@@ -113,7 +113,7 @@ function preload() {
   imgArr = [water, marina];
 
   cardsFont = loadFont('fonts/MagicCardsNormal.ttf');
-  boatModel = loadModel('models/newBoat.obj');
+  boatModel = loadModel('models/newBoatSmaller.obj');
   playerHorrible = loadModel('models/bodyModel2.obj');
   moonModel = loadModel('models/moon.obj');
 }

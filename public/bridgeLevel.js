@@ -44,7 +44,7 @@ class bridgeLevel {
         texture(bothWaters);
 
         push();
-        translate(3000, (rover.position.z + 9000), 2000);
+        translate(6000, (rover.position.z + 9000), 1200);
         // rotateY(inc / 100);
         rotateX(radians(180));
         rotateZ(radians(90));
