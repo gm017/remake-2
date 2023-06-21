@@ -281,7 +281,7 @@ function player2Model() {
     const angle = atan2(rover.position.x - otherPlayerPosition.x, rover.position.z - otherPlayerPosition.z);
 
     // Translate and rotate the model
-    translate(otherPlayerPosition.x, otherPlayerPosition.y + 500 + random(0, 20), otherPlayerPosition.z);
+    translate(otherPlayerPosition.x, otherPlayerPosition.y + 660, otherPlayerPosition.z);
     rotateY(angle + PI);
 
     texture(faceTexture);
