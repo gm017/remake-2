@@ -1,6 +1,7 @@
-
-let fillWhite = false;
-let fillInc = 0;
+let fillAlpha = 0;
+let fadeSpeed = 5;
+let isFadingOut = false;
+let isFadingIn = false;
 
 let levelOne;
 let waterTextureFloor;
@@ -205,16 +206,19 @@ function draw() { //Begin draw
   textureSwitch();
 
   if (gameIsFull === false) {
-    gameProgression();
+    if (levelCounter === 0) { 
+      bridgeLevel1.display();
+    }
+    if (levelCounter === 1) {
+      skyLevel1.display();
+    } 
   }
 
   displayMap();
 
   if (keyIsDown(32)) {
     rover.enableControl = false;
-  } else {
-    rover.enableControl = true;
-  }
+  } 
 
   player2Model();
 
@@ -278,27 +282,87 @@ function displayPlayerPortrait() {
   pop();
 }
 
-function displayWhiteSquare() {
-  
 
-  if (fillWhite === true) { 
-    fillInc+=50;
-    if (fillInc === 255) {
-      fillInc-=20;
-      if(fillInc === 0 ){
-      fillWhite = false;
-      }
-    }
+function displayWhiteSquare() {
+
+  if (rover.position.z < 2399 || rover.position.z > 40589) {
+    isFadingOut = true;
+    rover.enableControl = false;
   }
 
-  //FIX FILL TOMORROW
+  if (isFadingOut) {
+    fillAlpha += fadeSpeed;
+  }
+
+  if (fillAlpha >= 255 && isFadingOut) {
+    isFadingIn = true;
+    isFadingOut = false;
+    levelCounter++
+  } 
+
+  if (isFadingIn) {
+    if (rover.position.z < 2399) {
+    rover.position.z = 40000
+    } else if (rover.position.z > 40589) {
+      rover.position.z = 2500
+    }
+    fillAlpha -= fadeSpeed;
+    rover.enableControl = true;
+  } 
+
+  if (fillAlpha <= 0 && isFadingIn) {
+    isFadingIn = false;
+  }
 
   push();
   stickDisplays();
-  fill(255, fillInc);
+  fill(255, fillAlpha);
   rect(-1000, -630, 2920, 2080);
   pop();
+
+  if( levelCounter > 1 ){
+    levelCounter = 0;
+  }
 }
+
+
+// function displayWhiteSquare() {
+
+//   if (isFadingOut) {
+//     fillAlpha += fadeSpeed;
+//     rover.enableControl = false;
+//     if (fillAlpha >= 255) {
+//       fillAlpha = 255;
+//       isFadingOut = false;
+//       isFadingIn = true;
+//       if (levelCounter === 1) {
+//       levelCounter = 0
+//     } else if (levelCounter === 0) {
+//       levelCounter = 1
+//     }
+    
+//   } else if (isFadingIn) {
+//     fillAlpha -= fadeSpeed;
+//     if (fillAlpha <= 0) {
+//       rover.position.z = 40000;
+//       fillAlpha = 0;
+//       isFadingIn = false;
+    
+//     }
+//   } else {
+//     // Display the level normally
+//     rover.enableControl = true;
+//     return
+//   }
+
+//   push();
+//   stickDisplays();
+//   fill(255, fillAlpha);
+//   rect(-1000, -630, 2920, 2080);
+//   pop();
+// }
+
+
 
 function player2Model() {
   if (otherPlayerPosition) {
