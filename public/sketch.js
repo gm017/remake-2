@@ -1,4 +1,6 @@
 
+let fillWhite = false;
+let fillInc = 0;
 
 let levelOne;
 let waterTextureFloor;
@@ -134,8 +136,8 @@ function setup() {    //Begin setup
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
     fov: 1,
-    speed: 8.6 //Game speed
-    // speed: 30 //testing speed
+    // speed: 8.6 //Game speed
+    speed: 30 //testing speed
   });
 
   rover.position.z = 3527;
@@ -220,6 +222,7 @@ function draw() { //Begin draw
   gameFullMsg();
 
 
+  displayWhiteSquare();
 
 } //End Draw
 
@@ -273,7 +276,28 @@ function displayPlayerPortrait() {
   tint(255, 255, 0, 150);
   image(portrait, -950, -530, 100, 100);
   pop();
+}
 
+function displayWhiteSquare() {
+  
+
+  if (fillWhite === true) { 
+    fillInc+=50;
+    if (fillInc === 255) {
+      fillInc-=20;
+      if(fillInc === 0 ){
+      fillWhite = false;
+      }
+    }
+  }
+
+  //FIX FILL TOMORROW
+
+  push();
+  stickDisplays();
+  fill(255, fillInc);
+  rect(-1000, -630, 2920, 2080);
+  pop();
 }
 
 function player2Model() {

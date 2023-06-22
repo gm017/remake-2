@@ -29,22 +29,35 @@ function gameProgression() {
         bridgeLevel1.display();
         if (rover.position.z > 40589) {
             rover.position.z = 1650;
+            fillWhite = true;
+            if (fillInc === 255) {
             levelCounter++;
+            }
         }
         if (rover.position.z < 1635) {
             rover.position.z = 40589;
+            fillWhite = true;
+            if (fillInc === 255) {
             levelCounter++;
+            }
         }
     }
     if (levelCounter === 1) {
         skyLevel1.display();
         if (rover.position.z > 40589) {
             rover.position.z = 1650;
+            fillWhite = true;
+            if (fillInc === 255) {
             levelCounter++;
+            }
+
         }
         if (rover.position.z < 1635) {
             rover.position.z = 40589;
-            levelCounter++;
+            fillWhite = true;
+            if (fillInc === 255) {
+                levelCounter++;
+                }
         }
     }
 
