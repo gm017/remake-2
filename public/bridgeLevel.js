@@ -111,31 +111,31 @@ class bridgeLevel {
         pop();
 
 
-        if (rover.position.z < 13975 || rover.position.z > 16081) { 
+        if (rover.position.z < 13975 || rover.position.z > 16081) {
 
-        
-        if (rover.position.x > 1000) {
-            rover.position.x = 1000;
-        }
-        if (rover.position.x < -1000) {
-            rover.position.x = -1000;
-        }
-    
 
-        if (rover.position.z > 13795 && rover.position.z < 1700) {
-        
-            if (rover.position.x < 4000) {
-                if (rover.position.z >= 13795 && rover.position.z < 16081) {
-            if (rover.position.z > 16830) {
-                rover.position.z = 16830;
+            if (rover.position.x > 1000) {
+                rover.position.x = 1000;
             }
-            if (rover.position.z < 14490) {
-                rover.position.z = 14490;
+            if (rover.position.x < -1000) {
+                rover.position.x = -1000;
+            }
+
+
+            if (rover.position.z > 13795 && rover.position.z < 1700) {
+
+                if (rover.position.x < 4000) {
+                    if (rover.position.z >= 13795 && rover.position.z < 16081) {
+                        if (rover.position.z > 16830) {
+                            rover.position.z = 16830;
+                        }
+                        if (rover.position.z < 14490) {
+                            rover.position.z = 14490;
+                        }
+                    }
+                }
             }
         }
-    }
-    }
-}
     }
 }
 

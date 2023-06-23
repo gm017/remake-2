@@ -212,19 +212,19 @@ function draw() { //Begin draw
   textureSwitch();
 
   if (gameIsFull === false) {
-    if (levelCounter === 0) { 
+    if (levelCounter === 0) {
       bridgeLevel1.display();
     }
     if (levelCounter === 1) {
       skyLevel1.display();
-    } 
+    }
   }
 
   displayMap();
 
   if (keyIsDown(32)) {
     rover.enableControl = false;
-  } 
+  }
 
   player2Model();
 
@@ -237,15 +237,74 @@ function draw() { //Begin draw
   // sphere(10000);
   // pop();
 
+  if (levelCounter === 0) {
+    bridge1.display();
+  }
   if (levelCounter === 1) {
-  bridge1.display();
-  bridge2.display();
+    bridge2.display();
   }
 
   displayWhiteSquare();
 
-  
+  makeWalls();
+
 } //End Draw
+
+
+function makeWalls() {
+
+  if (levelCounter === 0) {
+    if (rover.position.z < 13975 || rover.position.z > 16081) {
+      if (rover.position.x > 1000) {
+        rover.position.x = 1000;
+      }
+      if (rover.position.x < -1000) {
+        rover.position.x = -1000;
+      }
+    }
+  }
+
+  if (levelCounter === 1) {
+    if (rover.position.z > 35900 || rover.position.z < 33100) {
+      if (rover.position.x > 1000) {
+        rover.position.x = 1000;
+      }
+      if (rover.position.x < -1000) {
+        rover.position.x = -1000;
+      }
+    }
+  }
+
+  if (levelCounter === 0) {
+    if (rover.position.z > 13795 && rover.position.z < 16084) {
+      if (rover.position.x < -4000) {
+
+        // if (rover.position.z > 15083) {
+        //   rover.position.z = 15083;
+        // }
+        // if (rover.position.z < 12790) {
+        //   rover.position.z = 13790;
+        // }
+        rover.position.z = 15000;
+      }
+    }
+  }
+
+  if (levelCounter === 1) {
+    if (rover.position.z > 33000 && rover.position.z < 36000) {
+      if (rover.position.x < -1000) {
+
+        // if (rover.position.z > 15083) {
+        //   rover.position.z = 15083;
+        // }
+        // if (rover.position.z < 12790) {
+        //   rover.position.z = 13790;
+        // }
+        rover.position.z = 35000;
+      }
+    }
+  }
+}
 
 
 function displayMap() {
@@ -315,17 +374,17 @@ function displayWhiteSquare() {
     isFadingIn = true;
     isFadingOut = false;
     levelCounter++
-  } 
+  }
 
   if (isFadingIn) {
     if (rover.position.z < 2399) {
-    rover.position.z = 40000
+      rover.position.z = 40000
     } else if (rover.position.z > 40589) {
       rover.position.z = 2500
     }
     fillAlpha -= fadeSpeed;
     rover.enableControl = true;
-  } 
+  }
 
   if (fillAlpha <= 0 && isFadingIn) {
     isFadingIn = false;
@@ -337,7 +396,7 @@ function displayWhiteSquare() {
   rect(-1000, -630, 2920, 2080);
   pop();
 
-  if( levelCounter > 1 ){
+  if (levelCounter > 1) {
     levelCounter = 0;
   }
 }
@@ -357,14 +416,14 @@ function displayWhiteSquare() {
 //     } else if (levelCounter === 0) {
 //       levelCounter = 1
 //     }
-    
+
 //   } else if (isFadingIn) {
 //     fillAlpha -= fadeSpeed;
 //     if (fillAlpha <= 0) {
 //       rover.position.z = 40000;
 //       fillAlpha = 0;
 //       isFadingIn = false;
-    
+
 //     }
 //   } else {
 //     // Display the level normally
@@ -420,9 +479,9 @@ function bgFade() {
 function getMovement() {
   if (keyIsDown(68) || keyIsDown(65) || keyIsDown(87) || keyIsDown(83)) {
     data = {
-      x: player1.position.x,
-      y: player1.position.y,
-      z: player1.position.z
+      x: rover.position.x,
+      y: rover.position.y,
+      z: rover.position.z
     }
     socket.emit('playerMove', data);
   }
