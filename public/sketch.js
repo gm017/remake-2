@@ -14,6 +14,7 @@ let data;
 let mapSprite;
 
 let bridge1;
+let bridge2;
 
 let socket;
 
@@ -169,6 +170,7 @@ function setup() {    //Begin setup
   skyLevel1 = new skyLevel();
 
   bridge1 = new Bridge(0, -100, 15000, 100);
+  bridge2 = new Bridge(0, -100, 35000, 100);
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);
 
@@ -235,8 +237,10 @@ function draw() { //Begin draw
   // sphere(10000);
   // pop();
 
+  if (levelCounter === 1) {
   bridge1.display();
-
+  bridge2.display();
+  }
 
   displayWhiteSquare();
 
