@@ -139,9 +139,9 @@ function setup() {    //Begin setup
     position: [-300, -400, -200],
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
-    fov: 1,
-    // speed: 8.6 //Game speed
-    speed: 60 //testing speed
+    fov: 0.8,
+    speed: 8.6 //Game speed
+    // speed: 60 //testing speed
   });
 
   rover.position.z = 3527;
