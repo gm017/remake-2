@@ -13,6 +13,8 @@ let data;
 
 let mapSprite;
 
+let bridge1;
+
 let socket;
 
 let backgroundOn = 0;
@@ -138,7 +140,7 @@ function setup() {    //Begin setup
     sensitivity: 0.03,
     fov: 1,
     // speed: 8.6 //Game speed
-    speed: 30 //testing speed
+    speed: 60 //testing speed
   });
 
   rover.position.z = 3527;
@@ -165,6 +167,8 @@ function setup() {    //Begin setup
   bridgeLevel1 = new bridgeLevel();
   bridgeLevel2 = new bridgeLevel();
   skyLevel1 = new skyLevel();
+
+  bridge1 = new Bridge(0, -100, 15000, 100);
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);
 
@@ -193,7 +197,7 @@ function draw() { //Begin draw
     }
   }
 
-  rover.position.y = -700;
+  // rover.position.y = -700;
 
   inc++;
 
@@ -225,9 +229,18 @@ function draw() { //Begin draw
   displayPlayerPortrait();
   gameFullMsg();
 
+  // push();
+  // translate(0, 0, 0);
+  // texture(water);
+  // sphere(10000);
+  // pop();
+
+  bridge1.display();
+
 
   displayWhiteSquare();
 
+  
 } //End Draw
 
 
