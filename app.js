@@ -6,14 +6,14 @@ let express = require('express');
 
 let app = express();
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
 
-const PORT =  3000;
+const PORT = process.env.PORT || 3000;
 
 let server = app.listen(PORT);
 
@@ -40,7 +40,7 @@ function newConnection(socket) {
 
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
-      });
+    });
 
     socket.on('disconnect', () => {
         // Decrement the player count
