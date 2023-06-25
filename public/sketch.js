@@ -147,7 +147,7 @@ function setup() {    //Begin setup
   rover.position.z = 3527;
 
   setAttributes('perPixelLighting', false);
-  socket = io.connect('localhost:3000');
+  socket = io.connect('https://remake-2.onrender.com/');
 
   socket.on('playerMove', function (data) {
     otherPlayerPosition = data;
