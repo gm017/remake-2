@@ -3,6 +3,9 @@ let fadeSpeed = 5;
 let isFadingOut = false;
 let isFadingIn = false;
 
+let textX = 1920;
+let textY = 1030;
+
 let levelOne;
 let waterTextureFloor;
 let cardsFont;
@@ -248,6 +251,8 @@ function draw() { //Begin draw
 
   makeWalls();
 
+  scrollingText();
+
 } //End Draw
 
 
@@ -316,6 +321,7 @@ function displayMap() {
     player2MapZ = map(otherPlayerPosition.z, -200, 40589, 0, 400);
   }
   stickDisplays();
+  translate(0, -30, 0);
   fill(0, 0, 0, 50);
   rect(400, 100, 100, 400);
   push();
@@ -334,6 +340,27 @@ function displayMap() {
   pop();
   pop();
 
+}
+
+function scrollingText() {
+
+  // textX = 1300;
+  // textY = 980;
+
+  if (textX > -700) {
+    textX -= 5;
+  } else {
+    textX = 2000;
+  }
+
+  push();
+  stickDisplays();
+  translate(-width / 2, -height / 2, 0);
+  fill(255, 120);
+  rect(0, 980, 1920, 90);
+  fill(255, 0, 0, 200);
+  text("press space to chat", textX, textY);
+  pop();
 }
 
 function gameFullMsg() {
