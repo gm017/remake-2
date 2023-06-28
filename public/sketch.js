@@ -359,7 +359,7 @@ function scrollingText() {
   fill(255, 120);
   rect(0, 980, 1920, 90);
   fill(255, 0, 0, 200);
-  text("press space to chat", textX, textY);
+  text("Day 1: Shortcut the oracle...", textX, textY);
   pop();
 }
 
