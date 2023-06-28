@@ -18,6 +18,7 @@ let mapSprite;
 
 let hallway1;
 let hallway2;
+let caveLevel;
 
 let socket;
 
@@ -52,6 +53,7 @@ let hotel;
 let fire;
 let bubbles;
 
+let lapis;
 
 let portrait;
 let faceTexture;
@@ -118,6 +120,7 @@ function preload() {
   faceTexture = loadImage('img/faceTexture2.png');
   gameFullImg = loadImage('img/gameFull.jpg');
   portrait = loadImage('img/playerPortrait.png');
+  lapis = loadImage('img/lapis.png');
 
   yarn = loadStrings('text/yarn.txt');
 
@@ -143,8 +146,8 @@ function setup() {    //Begin setup
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
     fov: 0.8,
-    speed: 8.6 //Game speed
-    // speed: 60 //testing speed
+    // speed: 8.6 //Game speed
+    speed: 60 //testing speed
   });
 
   rover.position.z = 3527;
@@ -174,6 +177,8 @@ function setup() {    //Begin setup
 
   hallway1 = new Hallway(0, -100, 15000, 100);
   hallway2 = new Hallway(0, -100, 35000, 100);
+
+  caveLevel = new CaveLevel(-31000, 0, 15000, 20000);
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);
 
@@ -225,10 +230,6 @@ function draw() { //Begin draw
 
   displayMap();
 
-  if (keyIsDown(32)) {
-    rover.enableControl = false;
-  }
-
   player2Model();
 
   displayPlayerPortrait();
@@ -247,10 +248,12 @@ function draw() { //Begin draw
     hallway2.display();
   }
 
-  displayWhiteSquare();
 
   makeWalls();
 
+  caveLevel.display();
+
+  displayWhiteSquare();
   scrollingText();
 
 } //End Draw
@@ -269,6 +272,7 @@ function makeWalls() {
     }
   }
 
+
   if (levelCounter === 1) {
     if (rover.position.z > 35900 || rover.position.z < 33100) {
       if (rover.position.x > 1000) {
@@ -282,7 +286,7 @@ function makeWalls() {
 
   if (levelCounter === 0) {
     if (rover.position.z > 13795 && rover.position.z < 16084) {
-      if (rover.position.x < -4000) {
+      if (rover.position.x < -4000 && rover.position.x > -24000) {
 
         // if (rover.position.z > 15083) {
         //   rover.position.z = 15083;
@@ -328,13 +332,11 @@ function displayMap() {
   fill(0, 255, 255);
   translate(-playerMapX, -playerMapZ, 0);
   image(mapSprite, 490, 490, 20, 20);
-  // ellipse(500, 490, 20);
   pop();
   push();
   fill(255, 0, 255);
   if (otherPlayerPosition) {
     translate(-player2MapX, -player2MapZ, 0);
-    // ellipse(500, 490, 20);
     image(mapSprite, 490, 490, 20, 20);
   }
   pop();
@@ -343,9 +345,6 @@ function displayMap() {
 }
 
 function scrollingText() {
-
-  // textX = 1300;
-  // textY = 980;
 
   if (textX > -700) {
     textX -= 5;
@@ -427,44 +426,6 @@ function displayWhiteSquare() {
     levelCounter = 0;
   }
 }
-
-
-// function displayWhiteSquare() {
-
-//   if (isFadingOut) {
-//     fillAlpha += fadeSpeed;
-//     rover.enableControl = false;
-//     if (fillAlpha >= 255) {
-//       fillAlpha = 255;
-//       isFadingOut = false;
-//       isFadingIn = true;
-//       if (levelCounter === 1) {
-//       levelCounter = 0
-//     } else if (levelCounter === 0) {
-//       levelCounter = 1
-//     }
-
-//   } else if (isFadingIn) {
-//     fillAlpha -= fadeSpeed;
-//     if (fillAlpha <= 0) {
-//       rover.position.z = 40000;
-//       fillAlpha = 0;
-//       isFadingIn = false;
-
-//     }
-//   } else {
-//     // Display the level normally
-//     rover.enableControl = true;
-//     return
-//   }
-
-//   push();
-//   stickDisplays();
-//   fill(255, fillAlpha);
-//   rect(-1000, -630, 2920, 2080);
-//   pop();
-// }
-
 
 
 function player2Model() {
