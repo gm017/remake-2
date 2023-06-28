@@ -16,8 +16,8 @@ let data;
 
 let mapSprite;
 
-let bridge1;
-let bridge2;
+let hallway1;
+let hallway2;
 
 let socket;
 
@@ -172,8 +172,8 @@ function setup() {    //Begin setup
   bridgeLevel2 = new bridgeLevel();
   skyLevel1 = new skyLevel();
 
-  bridge1 = new Bridge(0, -100, 15000, 100);
-  bridge2 = new Bridge(0, -100, 35000, 100);
+  hallway1 = new Hallway(0, -100, 15000, 100);
+  hallway2 = new Hallway(0, -100, 35000, 100);
 
   player1 = new PlayerModel(rover.position.x, rover.position.y, rover.position.z - 100);
 
@@ -241,10 +241,10 @@ function draw() { //Begin draw
   // pop();
 
   if (levelCounter === 0) {
-    bridge1.display();
+    hallway1.display();
   }
   if (levelCounter === 1) {
-    bridge2.display();
+    hallway2.display();
   }
 
   displayWhiteSquare();

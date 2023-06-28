@@ -1,4 +1,4 @@
-class Bridge {
+class Hallway {
     constructor(x, y, z, width) {
         this.x = x;
         this.y = y;
