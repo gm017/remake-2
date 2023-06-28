@@ -3,8 +3,6 @@ let fadeSpeed = 5;
 let isFadingOut = false;
 let isFadingIn = false;
 
-
-
 let textX = 1920;
 let textY = 1030;
 

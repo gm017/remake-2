@@ -1,14 +1,14 @@
 class CaveLevel {
-    constructor(x, y, z, width) {
+    constructor(x, y, z, width, texture) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.width = width;
+        this.texture = texture;
     }
     display() {
 
         background(91, 88, 187);
-
 
         push();
         texture(lapis);
@@ -83,9 +83,6 @@ class CaveLevel {
         if (rover.position.z > 23785) {
             rover.position.z = 23785;
         }
-
-
-
         //restrict
 
         // x -21000
