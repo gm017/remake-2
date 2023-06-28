@@ -9,6 +9,7 @@ class CaveLevel {
 
         background(91, 88, 187);
 
+
         push();
         texture(lapis);
         translate(this.x, this.y, this.z);
@@ -49,6 +50,25 @@ class CaveLevel {
         box(this.width, 2000, 10);
         pop();
 
+        push();
+        translate(this.x, this.y - 200, this.width);
+        rotateX(radians(90));
+        rotateZ(radians(frameCount));
+        texture(bubbles);
+        scale(260);
+        model(tornado);
+        pop();
+
+        push();
+        translate(this.x + 3000, this.y - 200, this.width - 13000);
+        rotateX(radians(90));
+        rotateZ(radians(frameCount * 1.4));
+        texture(bubbles);
+        scale(260);
+        model(tornado);
+        pop();
+
+
         if (rover.position.x > -22000) {
             rover.position.x = -22000;
         }
@@ -63,6 +83,7 @@ class CaveLevel {
         if (rover.position.z > 23785) {
             rover.position.z = 23785;
         }
+
 
 
         //restrict

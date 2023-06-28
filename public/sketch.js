@@ -3,6 +3,8 @@ let fadeSpeed = 5;
 let isFadingOut = false;
 let isFadingIn = false;
 
+
+
 let textX = 1920;
 let textY = 1030;
 
@@ -54,6 +56,8 @@ let fire;
 let bubbles;
 
 let lapis;
+
+let tornado;
 
 let portrait;
 let faceTexture;
@@ -121,6 +125,8 @@ function preload() {
   gameFullImg = loadImage('img/gameFull.jpg');
   portrait = loadImage('img/playerPortrait.png');
   lapis = loadImage('img/lapis.png');
+
+  tornado = loadModel('models/tornado.obj');
 
   yarn = loadStrings('text/yarn.txt');
 
