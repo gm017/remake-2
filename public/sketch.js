@@ -241,17 +241,29 @@ function draw() { //Begin draw
   // sphere(10000);
   // pop();
 
-  if (levelCounter === 0) {
-    hallway1.display();
+  if (levelCounter === 3) {
+    caveLevel.display();
   }
-  if (levelCounter === 1) {
+
+  if (levelCounter === 0 || levelCounter === 3) {
+    hallway1.display();
+
+  }
+  if (levelCounter === 1 || levelCounter === 3) {
     hallway2.display();
   }
 
+  if (levelCounter === 0) {
+    if (rover.position.x < -19500) {
+      rover.position.x = -22500;
+    }
+  }
 
   makeWalls();
 
-  caveLevel.display();
+  if (levelCounter === 3) {
+    caveLevel.display();
+  }
 
   displayWhiteSquare();
   scrollingText();
@@ -286,7 +298,7 @@ function makeWalls() {
 
   if (levelCounter === 0) {
     if (rover.position.z > 13795 && rover.position.z < 16084) {
-      if (rover.position.x < -4000 && rover.position.x > -24000) {
+      if (rover.position.x < -4000) {
 
         // if (rover.position.z > 15083) {
         //   rover.position.z = 15083;
@@ -313,6 +325,11 @@ function makeWalls() {
       }
     }
   }
+
+  if (rover.position.x < -20000) {
+    levelCounter = 3;
+  }
+
 }
 
 
@@ -422,7 +439,7 @@ function displayWhiteSquare() {
   rect(-1000, -630, 2920, 2080);
   pop();
 
-  if (levelCounter > 1) {
+  if (levelCounter === 2) {
     levelCounter = 0;
   }
 }
