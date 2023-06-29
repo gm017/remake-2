@@ -70,18 +70,31 @@ class CaveLevel {
 
 
         if (rover.position.x > -22000) {
-            rover.position.x = -22000;
+            // rover.position.x = -22000;
+            rover.position.z = 4000;
+            rover.position.x = 4000;
+            levelCounter = 1;
+
         }
         if (rover.position.x < -40000) {
-            rover.position.x = -40000;
+            // rover.position.x = -40000;
+            rover.position.x = 4000;
+            rover.position.z = 4000;
+            levelCounter = 0;
         }
 
         if (rover.position.z < 5600) {
-            rover.position.z = 5600;
+            // rover.position.z = 5600;
+            rover.position.x = 4000;
+            rover.position.z = 4000;
+            levelCounter = 1;
         }
 
         if (rover.position.z > 23785) {
-            rover.position.z = 23785;
+            // rover.position.z = 23785;
+            rover.position.x = 4000;
+            rover.position.z = 4000;
+            levelCounter = 0;
         }
         //restrict
 
