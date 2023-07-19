@@ -17,7 +17,7 @@ canvas {
 
 .messages-container {
   border: 20px groove rgba(238, 235, 73, 0.758);
-  width:200px;
+  width: 200px;
   height: 180px;
   position: fixed;
   display: none;
@@ -26,7 +26,7 @@ canvas {
   left: 1100px;
 }
 
-#messages {
+/* #messages {
   display: none;
 }
 
@@ -36,4 +36,4 @@ canvas {
 
 #input {
   display: none;
-}
+} */
