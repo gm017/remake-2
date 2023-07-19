@@ -20,7 +20,7 @@ canvas {
   width: 200px;
   height: 180px;
   position: fixed;
-  display: none;
+  /* display: none; */
   background-color: rgba(250, 235, 215, 0.527);
   top: 300px;
   left: 1100px;
@@ -28,9 +28,9 @@ canvas {
 
 /* #messages {
   display: none;
-}
+} */
 
-#form {
+/* #form {
   display: none;
 }
 
