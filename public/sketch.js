@@ -200,6 +200,8 @@ function setup() {    //Begin setup
 
 function draw() { //Begin draw
 
+  console.log(mouseX, mouseY);
+
   player1.display();
 
 
@@ -333,7 +335,6 @@ function makeWalls() {
   if (rover.position.x < -20000) {
     levelCounter = 3;
   }
-
 }
 
 
