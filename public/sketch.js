@@ -37,6 +37,8 @@ let bothWaters;
 
 let boatModel;
 
+let scoreCount = 0;
+
 let voiceAccel = 10;
 
 let levelCounter = 0;
@@ -196,14 +198,11 @@ function setup() {    //Begin setup
 
 } // Begin draw
 
-
-
 function draw() { //Begin draw
 
   console.log(mouseX, mouseY);
 
   player1.display();
-
 
   if (frameCount % 60 === 0) {
     if (backgroundOn === 0) {
@@ -235,6 +234,7 @@ function draw() { //Begin draw
   }
 
   displayMap();
+  displayScoreCount();
 
   player2Model();
 
@@ -273,6 +273,8 @@ function draw() { //Begin draw
 
   displayWhiteSquare();
   scrollingText();
+
+
 
 } //End Draw
 
@@ -396,6 +398,21 @@ function gameFullMsg() {
     text("you need to rest and try again later x", 100, 200);
     pop();
   }
+}
+
+
+function displayScoreCount() {
+  push();
+  stickDisplays();
+  // image(portrait, -950, -530, 100, 100);
+  fill(255, 0, 0);
+  rect(0, -530, 100, 100);
+  fill(0, 255, 0);
+  if (frameCount % 600 === 0) {
+    scoreCount++;
+  }
+  text(scoreCount, 50, -450);
+  pop();
 }
 
 function displayPlayerPortrait() {
