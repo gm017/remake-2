@@ -404,6 +404,7 @@ function gameFullMsg() {
 function displayScoreCount() {
   push();
   stickDisplays();
+  translate(850, 0, 0);
   // image(portrait, -950, -530, 100, 100);
   fill(255, 0, 0);
   rect(0, -530, 100, 100);
