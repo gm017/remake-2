@@ -3,6 +3,8 @@ let fadeSpeed = 5;
 let isFadingOut = false;
 let isFadingIn = false;
 
+let soundIsPlaying = false;
+
 let textX = 1920;
 let textY = 1030;
 
@@ -125,6 +127,8 @@ function preload() {
   gameFullImg = loadImage('img/gameFull.jpg');
   portrait = loadImage('img/playerPortrait.png');
   lapis = loadImage('img/lapis.png');
+
+  soundtrack = loadSound('sound/rewaxSoundtrack.mp3');
 
   tornado = loadModel('models/tornado.obj');
 
@@ -525,6 +529,12 @@ function keyPressed() {
   fire.loop();
   fire.speed(0.2);
   bubbles.loop();
+
+  if (soundIsPlaying === false) {
+    soundtrack.loop();
+    soundIsPlaying = true;
+  }
+
 }
 
 
