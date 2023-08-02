@@ -156,8 +156,8 @@ function setup() {    //Begin setup
     rotation: [1.56, 0, 0],
     sensitivity: 0.03,
     fov: 0.8,
-    // speed: 8.6 //Game speed
-    speed: 60 //testing speed
+    speed: 12.6 //Game speed
+    // speed: 60 //testing speed
   });
 
   rover.position.z = 3527;
@@ -276,12 +276,37 @@ function draw() { //Begin draw
   }
 
   displayWhiteSquare();
-  scrollingText();
+  // scrollingText();
 
+  trackMousePos();
 
 
 } //End Draw
 
+
+function trackMousePos() {
+  if (mouseX < 0 || mouseX > 2030 || mouseY < -5 || mouseY > 976) {
+    rover.enableControl = false;
+    if (textX > -1200) {
+      textX -= 15;
+    } else {
+      textX = 2000;
+    }
+
+    push();
+    stickDisplays();
+    translate(-width / 2, -height / 2, 0);
+    fill(255, 120);
+    rect(0, 980, 1920, 90);
+    fill(255, 0, 0, 200);
+    text("MOUSE NOT IN FRAME - MOVEMENT DISABLED", textX, textY);
+    pop();
+  } else {
+    rover.enableControl = true;
+  }
+
+
+}
 
 function makeWalls() {
 
