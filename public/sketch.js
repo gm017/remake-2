@@ -285,7 +285,7 @@ function draw() { //Begin draw
 
 
 function trackMousePos() {
-  if (mouseX < 0 || mouseX > 2030 || mouseY < -5 || mouseY > 976) {
+  if (mouseX < 0 || mouseX > 2030 || mouseY < -5 || mouseY > 1189) {
     rover.enableControl = false;
     if (textX > -1200) {
       textX -= 15;
